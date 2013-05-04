@@ -15,12 +15,14 @@ module.exports = function(req, res, next) {
     var end = data[1];
 
     if(!start) {
-      res.send(from + 'が見つかりませんでした');
+      var str = from + 'が見つかりませんでした';
+      res.render('notfound', { title: str, str: str });
       return;
     }
 
     if(!end) {
-      res.send(to + 'が見つかりませんでした');
+      var str = to + 'が見つかりませんでした';
+      res.render('notfound', { title: str, str: str });
       return;
     }
     var key = start + '-' + end;
