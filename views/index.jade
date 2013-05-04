@@ -1,5 +1,16 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  form.form-horizontal(action='/route')
+    .control-group
+      label.control-label(for='from') この記事から
+      .controls
+        input#from.search-query(type='text',name='from',placeholder='この記事から')
+    .control-group
+      label.control-label(for='to') この記事まで
+      .controls
+        input#to.search-query(type='text',name='to',placeholder='この記事まで')
+    .control-group
+      .controls
+        button.btn.btn-large.btn-primary(type='submit') 最短距離探索！
+

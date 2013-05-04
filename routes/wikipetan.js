@@ -7,17 +7,20 @@ client_v.select(config.redis_volatile.db);
 var queue_key = config.jobqueue_key;
 
 module.exports = function(req, res, next) {
-  client_g.mget(["t" + req.params.start, "t" + req.params.end], function(err, data) {
+  console.log(req.body);
+  var from = req.query.from;
+  var to = req.query.to;
+  client_g.mget(["t" + from, "t" + to], function(err, data) {
     var start = data[0];
     var end = data[1];
 
     if(!start) {
-      res.send(req.params.start + 'が見つかりませんでした');
+      res.send(from + 'が見つかりませんでした');
       return;
     }
 
     if(!end) {
-      res.send(req.params.end + 'が見つかりませんでした');
+      res.send(to + 'が見つかりませんでした');
       return;
     }
     var key = start + '-' + end;
@@ -33,7 +36,11 @@ module.exports = function(req, res, next) {
 
       var mget = result.split(',').reverse().map(function(e) { return 'l' + e; });
       client_g.mget(mget, function(err, data) {
-        res.send(data);
+        var title = from + 'から' + to + 'までは' + (data.length - 1) + 'リンクで到達できます。';
+        from = encodeURI(from);
+        to = encodeURI(to);
+        var url = 'https://twitter.com/home?status=' + encodeURIComponent(title + ' #wikipetan http://wikipetan.kfka.net/route?from=' + from + '&to=' + to);
+        res.render('route', { title: title, res: data, tweeturl: url });
       });
     }
 

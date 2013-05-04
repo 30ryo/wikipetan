@@ -5,3 +5,4 @@ tmp/*
 npm-debug.log
 bin
 data
+public/stylesheets/style.css
