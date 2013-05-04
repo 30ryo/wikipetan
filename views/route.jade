@@ -7,7 +7,7 @@ block content
       i.icon-comment.icon-white
       結果をTwitterでつぶやく
 
-  table.table.table-striped
+  table.table.table-striped.hidden-phone
     for str, index in res
       tr
         td(style='width:40px')= (index+1)
@@ -21,6 +21,19 @@ block content
           a.btn.btn-mini.btn-inverse(href='/?to=' + encodeURIComponent(str))
             i.icon-arrow-left.icon-white
             この記事まで
+
+  table.table.table-striped.visible-phone
+    for str, index in res
+      tr
+        td(style='width:40px')= (index+1)
+        td
+          a(href='http://ja.wikipedia.org/wiki/' + encodeURIComponent(str))= str
+        td(style='width:30px')
+          a.btn.btn-mini.btn-success(href='/?from=' + encodeURIComponent(str))
+            i.icon-arrow-right.icon-white
+        td(style='width:30px')
+          a.btn.btn-mini.btn-inverse(href='/?to=' + encodeURIComponent(str))
+            i.icon-arrow-left.icon-white
   p
     a.btn.btn-inverse(href=reverse_url )
       i.icon-white.icon-random
