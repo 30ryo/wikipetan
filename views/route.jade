@@ -3,7 +3,9 @@ extends layout
 block content
   p= title
   p
-    a.btn.btn-primary(href=tweeturl, target='_blank') 結果をTwitterでつぶやく
+    a.btn.btn-primary(href=tweeturl, target='_blank')
+      i.icon-comment.icon-white
+      結果をTwitterでつぶやく
 
   table.table.table-striped
     for str, index in res
@@ -11,11 +13,19 @@ block content
         td(style='width:40px')= (index+1)
         td
           a(href='http://ja.wikipedia.org/wiki/' + encodeURIComponent(str))= str
-        td(style='width:80px')
-          a.btn.btn-mini.btn-success(href='/?from=' + encodeURIComponent(str)) この記事から
-        td(style='width:80px')
-          a.btn.btn-mini.btn-inverse(href='/?to=' + encodeURIComponent(str)) この記事まで
+        td(style='width:100px')
+          a.btn.btn-mini.btn-success(href='/?from=' + encodeURIComponent(str))
+            この記事から
+            i.icon-arrow-right.icon-white
+        td(style='width:100px')
+          a.btn.btn-mini.btn-inverse(href='/?to=' + encodeURIComponent(str))
+            i.icon-arrow-left.icon-white
+            この記事まで
   p
-    a.btn.btn-inverse(href=reverse_url )= reverse
+    a.btn.btn-inverse(href=reverse_url )
+      i.icon-white.icon-random
+      span(style='padding-left:4px')= reverse
   p
-    a.btn.btn-info(href='/').btn.btn-info トップページに戻る
+    a.btn.btn-info(href='/').btn.btn-info
+      i.icon-home.icon-white
+      トップページに戻る
