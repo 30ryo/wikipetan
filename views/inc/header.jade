@@ -1,14 +1,20 @@
 .navbar.navbar-inverse.navbar-fixed-top
   .navbar-inner
     .container
-      a(data-toggle='collapse', data-target='.nav-collapse').btn.btn-navbar
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
       a(href='/').brand Wikipedia最短
-.page-header(style="padding-top:40px")
+      ul.nav(style='padding-left: 20px;margin-top: 10px;')
+        li(style='padding-right: 10px;')
+          a.hatena-bookmark-button(href='http://b.hatena.ne.jp/entry/http://wikipetan.kfka.net', data-hatena-bookmark-layout='simple-balloon', title='このエントリーをはてなブックマークに追加')
+            img(src='http://b.st-hatena.com/images/entry-button/button-only.gif', alt='このエントリーをはてなブックマークに追加', width='20', height='20', style='border: none;')
+            script(type='text/javascript', src='http://b.st-hatena.com/js/bookmark_button.js', charset='utf-8', async='async')
+        li
+          a.twitter-share-button(href='https://twitter.com/share', data-url='http://wikipetan.kfka.net', data-lang='ja') ツイート
+          script
+            !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+.page-header.hidden-phone(style="padding-top:40px")
   .container
-    h3 Wikipedia最短
+    h3
+      a(href='/') Wikipedia最短
     p ダイクストラ法(ゴリ押し)により、Wikipediaの記事リンクの正確な最短距離を探索します。Categoryページ等は除外しています。
     p
       a(href='https://twitter.com/YArMui') 作った人@YArMui (アプリケーションエンジニアで求職中)

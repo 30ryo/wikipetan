@@ -1,3 +1,5 @@
 exports.index = function(req, res) {
-  res.render('index', { title: 'wikipedia最短' });
+  var from = req.query.from || '';
+  var to = req.query.to || '';
+  res.render('index', { title: 'wikipedia最短', from: from, to: to });
 };

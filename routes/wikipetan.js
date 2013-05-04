@@ -7,9 +7,18 @@ client_v.select(config.redis_volatile.db);
 var queue_key = config.jobqueue_key;
 
 module.exports = function(req, res, next) {
-  console.log(req.body);
-  var from = req.query.from;
-  var to = req.query.to;
+  var from = decodeURIComponent(req.query.from);
+  var to = decodeURIComponent(req.query.to);
+  if(!from && !to) {
+    res.redirect('/');
+    return;
+  } else if(!from) {
+    res.redirect('/?to=' + to);
+    return;
+  } else if(!to) {
+    res.redirect('/?from=' + from);
+    return;
+  }
   client_g.mget(["t" + from, "t" + to], function(err, data) {
     var start = data[0];
     var end = data[1];
@@ -38,11 +47,19 @@ module.exports = function(req, res, next) {
 
       var mget = result.split(',').reverse().map(function(e) { return 'l' + e; });
       client_g.mget(mget, function(err, data) {
-        var title = from + 'から' + to + 'までは' + (data.length - 1) + 'リンクで到達できます。';
-        from = encodeURI(from);
-        to = encodeURI(to);
-        var url = 'https://twitter.com/home?status=' + encodeURIComponent(title + ' #wikipetan http://wikipetan.kfka.net/route?from=' + from + '&to=' + to);
-        res.render('route', { title: title, res: data, tweeturl: url });
+        if(data.length > 1) {
+          var title = from + 'から' + to + 'までは' + (data.length - 1) + 'リンクで到達できます';
+        } else {
+          var title = from + 'から' + to + 'には到達出来ませんでした';
+          data = [];
+        }
+        var reverse = to + 'から' + from + 'までの最短経路を探索する';
+        from = encodeURIComponent(from);
+        to = encodeURIComponent(to);
+        var reverse_url = '/route?from=' + to + '&to=' + from;
+        var url = 'https://twitter.com/home?status=';
+        url += encodeURIComponent(title + ' #wikipetan http://wikipetan.kfka.net/route?from=' + from + '&to=' + to);
+        res.render('route', { title: title, res: data, tweeturl: url, from: from, to: to, reverse: reverse, reverse_url: reverse_url });
       });
     }
 

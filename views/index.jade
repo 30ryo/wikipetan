@@ -5,11 +5,11 @@ block content
     .control-group
       label.control-label(for='from') この記事から
       .controls
-        input#from.search-query(type='text',name='from',placeholder='この記事から')
+        input#from.search-query(type='text',name='from',placeholder='この記事から',value=from)
     .control-group
       label.control-label(for='to') この記事まで
       .controls
-        input#to.search-query(type='text',name='to',placeholder='この記事まで')
+        input#to.search-query(type='text',name='to',placeholder='この記事まで', value=to)
     .control-group
       .controls
         button.btn.btn-large.btn-primary(type='submit') 最短距離探索！

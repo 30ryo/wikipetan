@@ -2,16 +2,20 @@ extends layout
 
 block content
   p= title
-    a(href=tweeturl, target='_blank') 結果をTwitterでつぶやく
   p
-    a.twitter-share-button(href="https://twitter.com/share",data-lang="ja",data-hashtags="wikipetan") ツイート
-    script
-      !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+    a.btn.btn-primary(href=tweeturl, target='_blank') 結果をTwitterでつぶやく
 
   table.table.table-striped
     for str, index in res
       tr
-        td(style="width:40px")= (index+1)
+        td(style='width:40px')= (index+1)
         td
-          a(href='http://ja.wikipedia.org/wiki/' + str)= str
-  a(href='/') トップページに戻る
+          a(href='http://ja.wikipedia.org/wiki/' + encodeURIComponent(str))= str
+        td(style='width:80px')
+          a.btn.btn-mini.btn-success(href='/?from=' + encodeURIComponent(str)) この記事から
+        td(style='width:80px')
+          a.btn.btn-mini.btn-inverse(href='/?to=' + encodeURIComponent(str)) この記事まで
+  p
+    a.btn.btn-inverse(href=reverse_url )= reverse
+  p
+    a.btn.btn-info(href='/').btn.btn-info トップページに戻る

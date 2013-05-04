@@ -5,7 +5,18 @@ html
   body
     include inc/header
     .container
-      block content
+      .row
+        .span9
+          block content
+        .span3.hidden-phone
+          script(type='text/javascript')
+            amazon_ad_tag = "yarmmf-22"; amazon_ad_width = "160"; amazon_ad_height = "600"; amazon_ad_link_target = "new"; amazon_ad_price = "retail";
+          script(type='text/javascript', src='http://www.assoc-amazon.jp/s/ads.js')
+        .span3.visible-phone(style='padding-top:20px')
+          script(type='text/javascript')
+            amazon_ad_tag = "yarmmf-22"; amazon_ad_width = "468"; amazon_ad_height = "60"; amazon_ad_link_target = "new"; amazon_ad_price = "retail";
+          script(type='text/javascript', src='http://www.assoc-amazon.jp/s/ads.js')
+
     script
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -14,4 +25,3 @@ html
 
       ga('create', 'UA-40399372-3', 'kfka.net');
       ga('send', 'pageview');
-
