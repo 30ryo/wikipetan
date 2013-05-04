@@ -1,4 +1,4 @@
-CC      = g++-mp-4.5
+CC      = g++
 CFLAGS  = -O4 -std=c++0x -Wall
 OUTDIR  = ../bin
 all: $(OUTDIR) $(OUTDIR)/drip $(OUTDIR)/main
