@@ -7,18 +7,22 @@ client_v.select(config.redis_volatile.db);
 var queue_key = config.jobqueue_key;
 
 module.exports = function(req, res, next) {
-  var from = decodeURIComponent(req.query.from);
-  var to = decodeURIComponent(req.query.to);
+  var from = req.query.from;
+  var to = req.query.to;
+  console.log(typeof from);
+  console.log(typeof to);
   if(!from && !to) {
     res.redirect('/');
     return;
   } else if(!from) {
-    res.redirect('/?to=' + to);
+    res.redirect('/?to=' + encodeURIComponent(decodeURIComponent(to)));
     return;
   } else if(!to) {
-    res.redirect('/?from=' + from);
+    res.redirect('/?from=' + encodeURIComponent(decodeURIComponent(from)));
     return;
   }
+  var from = decodeURIComponent(from);
+  var to = decodeURIComponent(to);
   client_g.mget(["t" + from, "t" + to], function(err, data) {
     var start = data[0];
     var end = data[1];
